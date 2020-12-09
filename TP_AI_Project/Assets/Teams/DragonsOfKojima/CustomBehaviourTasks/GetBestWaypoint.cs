@@ -8,8 +8,7 @@ namespace DragonsOfKojima
 	[TaskDescription("Find the more optimal waypoint to convert")]
 	public class GetBestWaypoint : Action
 	{
-		public SharedVector2 bestWayPointPosition;
-		public SharedVector2 currentPosition;
+		public SharedObject bestWayPoint;
 		private List<DoNotModify.WayPoint> allWayPoints;
 
 		public override void OnStart()
@@ -19,51 +18,58 @@ namespace DragonsOfKojima
 
 		public override TaskStatus OnUpdate()
 		{
-			Transform closestPoint = null;
-			Transform lessAnglePoint = null;
-			Transform bestPoint = null;
+			Vector2 closestPointTransform = Vector2.zero;
+			Object closestPoint = null;
+			Vector2 lessAnglePointTransform = Vector2.zero;
+			Object lessAnglePoint = null;
+			Vector2 bestPointTransform = Vector2.zero;
+			Object bestPoint = null;
 			float minDist = Mathf.Infinity;
 			float minAngle = Mathf.Infinity;
 			Vector3 currentPos = transform.position;
+
 			foreach (DoNotModify.WayPoint point in allWayPoints)
 			{
 				///TO DO : add owner verification   avec singleton blackboard ou mettre spaceship en variable du blackboard
-				//if(point.Owner != spaceship)
-
-				//should be velocity, how to get ??
-				Vector3 dir = point.transform.position - transform.position;
-				dir = point.transform.InverseTransformDirection(dir);
-				float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-				if(angle < minAngle)
-                {
-					lessAnglePoint = point.transform;
-					minAngle = angle;
-                }
-
-				float dist = Vector3.Distance(point.transform.position, currentPos);
-				if (dist < minDist)
+				if (point.Owner != Blackboard.instance.ownerSpaceship.Owner)
 				{
-					closestPoint = point.transform;
-					minDist = dist;
-				}
+					Vector2 dir = new Vector2(point.Position.x, point.Position.y) - Blackboard.instance.ownerSpaceship.Velocity;
+					dir = point.transform.InverseTransformDirection(dir);
+					float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+					if (angle < minAngle)
+					{
+						lessAnglePointTransform = point.Position;
+						lessAnglePoint = point;
+						minAngle = angle;
+					}
 
-				if(lessAnglePoint == closestPoint)
-                {
+					float dist = Vector3.Distance(point.transform.position, currentPos);
+					if (dist < minDist)
+					{
+						closestPointTransform = point.Position;
+						closestPoint = point;
+						minDist = dist;
+					}
+				}
+				if (lessAnglePoint == closestPoint)
+				{
 					bestPoint = closestPoint;
-                }
+					bestPointTransform = closestPointTransform;
+				}
 				//check rapport angle/distance
-				else if (Vector3.Distance(lessAnglePoint.transform.position, currentPos) >= 5)
-                {
+				else if (Vector3.Distance(lessAnglePointTransform, currentPos) >= 5)
+				{
 					bestPoint = closestPoint;
-                }
-                else
-                {
+					bestPointTransform = closestPointTransform;
+				}
+				else
+				{
 					bestPoint = lessAnglePoint;
+					bestPointTransform = lessAnglePointTransform;
 				}
 
 			}
-			bestWayPointPosition.Value = new Vector2(bestPoint.position.x, bestPoint.position.y);
-			currentPosition.Value = new Vector2(transform.position.x, transform.position.y);
+			bestWayPoint.Value = bestPoint;
 			return TaskStatus.Success;
 		}
 	}
