@@ -17,14 +17,14 @@ namespace DragonsOfKojima
             _blackboard.Initialize(spaceship, data);
         }
 
-        // public override InputData UpdateInput(SpaceShip spaceship, GameData data)
-        // {
-        //     float thrust = 0.0f;
-        //     float targetOrient = spaceship.Orientation/* + 90.0f*/;
-        //     
-        //     _blackboard.UpdateData(data);
-        //     
-        //     return new InputData(thrust, targetOrient, false, false, false);
-        // }
+        public override InputData UpdateInput(SpaceShip spaceship, GameData data)
+        {
+            float thrust = 0.1f;
+            float targetOrient = spaceship.Orientation + Blackboard.instance.angleToTarget;
+
+            _blackboard.UpdateData(data);
+
+            return new InputData(thrust, Blackboard.instance.angleToTarget, false, false, false);
+        }
     }
 }

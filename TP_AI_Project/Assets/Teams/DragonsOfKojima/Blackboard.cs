@@ -15,11 +15,16 @@ namespace DragonsOfKojima
 		BehaviorTree _behaviorTree = null;
 		Animator _stateMachine = null;
 		int _owner;
+		public SpaceShip ownerSpaceship { get; private set; }
 		GameData _latestGameData = null;
 
 		bool _debugCanShootIntersect = false;
 		Vector2 _debugIntersection = Vector2.zero;
 		float _debugTimeDiff = 0;
+
+		/// <INPUT DATA PROPERTIES>
+		public float angleToTarget = 0;
+		
 
 		public static Blackboard instance;
 		public void Awake()
@@ -40,6 +45,7 @@ namespace DragonsOfKojima
 		{
 			_latestGameData = gameData;
 			_owner = aiShip.Owner;
+			ownerSpaceship = aiShip;
 		}
 
 		public void UpdateData(GameData gameData)
