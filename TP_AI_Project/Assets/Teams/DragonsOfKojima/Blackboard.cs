@@ -14,7 +14,11 @@ namespace DragonsOfKojima
 
 		BehaviorTree _behaviorTree = null;
 		Animator _stateMachine = null;
+
+		public float ThrusterValue { get; private set; }
+
 		int _owner;
+		public SpaceShip _ownerSpaceShip { get; private set; }
 		GameData _latestGameData = null;
 
 		bool _debugCanShootIntersect = false;
@@ -40,6 +44,7 @@ namespace DragonsOfKojima
 		{
 			_latestGameData = gameData;
 			_owner = aiShip.Owner;
+			_ownerSpaceShip = aiShip;
 		}
 
 		public void UpdateData(GameData gameData)
@@ -95,6 +100,11 @@ namespace DragonsOfKojima
 				Gizmos.DrawLine(enemyShip.Position, _debugIntersection);
 				Gizmos.DrawSphere(_debugIntersection, Mathf.Clamp(Mathf.Abs(_debugTimeDiff), 0.5f, 0));
 			}
+		}
+
+		public void ChangeThrusterValue(float newValue)
+		{
+			ThrusterValue = newValue;
 		}
 	}
 }
