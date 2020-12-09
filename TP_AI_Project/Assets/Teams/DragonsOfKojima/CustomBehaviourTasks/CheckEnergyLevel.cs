@@ -12,7 +12,7 @@ namespace DragonsOfKojima
 
 		public override TaskStatus OnUpdate()
 		{
-			if (Blackboard.instance._ownerSpaceShip.Energy >= energyRequired)
+			if (Blackboard.instance.ownerSpaceship.Energy >= energyRequired)
 			{
 				return TaskStatus.Success;
 			}

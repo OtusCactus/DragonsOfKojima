@@ -19,7 +19,7 @@ namespace DragonsOfKojima
 			blackboard = Blackboard.instance;
 			if (blackboard.TriggerShoot)
 			{
-				blackboard._ownerSpaceShip.Shoot();
+				blackboard.ownerSpaceship.Shoot();
 			}
 		}
 

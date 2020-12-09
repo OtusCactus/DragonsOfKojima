@@ -10,7 +10,7 @@ namespace DragonsOfKojima
 	{
 		public override void OnStart()
 		{
-			Blackboard.instance._ownerSpaceShip.FireShockwave();
+			Blackboard.instance.ownerSpaceship.FireShockwave();
 		}
 
 		public override TaskStatus OnUpdate()

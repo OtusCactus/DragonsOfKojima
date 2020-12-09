@@ -17,7 +17,7 @@ namespace DragonsOfKojima
 
 		public override void OnStart()
 		{
-			AISpaceShip = Blackboard.instance._ownerSpaceShip;
+			AISpaceShip = Blackboard.instance.ownerSpaceship;
 			timer = TimerMax;
 		}
 

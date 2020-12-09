@@ -10,7 +10,7 @@ namespace DragonsOfKojima
 	{
 		public override void OnStart()
 		{
-			Blackboard.instance._ownerSpaceShip.DropMine();
+			Blackboard.instance.ownerSpaceship.DropMine();
 		}
 
 		public override TaskStatus OnUpdate()

@@ -12,7 +12,7 @@ namespace DragonsOfKojima
 	{
 		public override void OnStart()
 		{
-			Blackboard.instance._ownerSpaceShip.Shoot();
+			Blackboard.instance.ownerSpaceship.Shoot();
 		}
 
 		public override TaskStatus OnUpdate()
