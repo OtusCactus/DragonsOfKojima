@@ -12,6 +12,7 @@ namespace DragonsOfKojima
 
 		public override void OnStart()
 		{
+			Blackboard.instance.ChangeThrusterValue(0.1f);
 			targetPoint = bestPoint.Value as DoNotModify.WayPoint;
 		}
 

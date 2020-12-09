@@ -13,6 +13,7 @@ namespace DragonsOfKojima
 
 		public override void OnStart()
 		{
+			Blackboard.instance.ChangeThrusterValue(0);
 			allWayPoints = DoNotModify.GameManager.Instance.GetGameData().WayPoints;
 		}
 

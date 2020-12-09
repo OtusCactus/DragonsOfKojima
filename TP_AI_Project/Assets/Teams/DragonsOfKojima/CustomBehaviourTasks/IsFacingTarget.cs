@@ -6,8 +6,7 @@ namespace DragonsOfKojima {
 	public class IsFacingTarget : Action
 	{
 
-		public SharedVector2 targetOrientation;
-		public Vector2 currentForward;
+		public float miaou;
 
 		public override void OnStart()
 		{
@@ -16,8 +15,8 @@ namespace DragonsOfKojima {
 
 		public override TaskStatus OnUpdate()
 		{
-			currentForward = new Vector2(Blackboard.instance.ownerSpaceship.transform.right.x, Blackboard.instance.ownerSpaceship.transform.right.y);
-			if (currentForward == targetOrientation.Value)
+
+			if (Blackboard.instance.ownerSpaceship.Orientation == Blackboard.instance.angleToTarget)
 			{
 				return TaskStatus.Success;
             }
