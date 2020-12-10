@@ -8,9 +8,11 @@ namespace DragonsOfKojima
 
 	public class DropMine : Action
 	{
+		public SharedBool canDropMine;
 		public override void OnStart()
 		{
-			Blackboard.instance.ownerSpaceship.DropMine();
+			if(canDropMine.Value)
+				Blackboard.instance.ownerSpaceship.DropMine();
 		}
 
 		public override TaskStatus OnUpdate()

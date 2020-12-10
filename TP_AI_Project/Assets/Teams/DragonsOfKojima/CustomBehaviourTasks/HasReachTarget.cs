@@ -6,7 +6,7 @@ namespace DragonsOfKojima
 {
 	public class HasReachTarget : Action
 	{
-
+		public SharedBool canDropMine;
 		public SharedObject bestPoint;
 		DoNotModify.WayPoint targetPoint;
 
@@ -20,6 +20,7 @@ namespace DragonsOfKojima
             if (targetPoint.Owner == Blackboard.instance.ownerSpaceship.Owner)
 			{
 				Blackboard.instance.ChangeThrusterValue(0f);
+				canDropMine.Value = true;
 				return TaskStatus.Failure;
 			}
             else
