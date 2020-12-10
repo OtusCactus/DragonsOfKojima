@@ -56,7 +56,7 @@ namespace DragonsOfKojima
 				angle = Mathf.Abs(Vector2.Angle(direction, Blackboard.instance.ownerSpaceship.Velocity));
 			}
 			
-			if (canThrust.Value && (distanceWithPoint >= 1.5 || Blackboard.instance.ownerSpaceship.Velocity == Vector2.zero))
+			if (canThrust.Value)
             {
                 if (angle <= angleForMaxThruster)
                 {
