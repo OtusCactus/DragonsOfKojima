@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 using DoNotModify;
 using BehaviorDesigner.Runtime;
@@ -14,6 +15,7 @@ namespace DragonsOfKojima
 
 		BehaviorTree _behaviorTree = null;
 		BehaviorTree[] _behaviorTrees;
+		int currentBehaviourTree = 0;
 		Animator _stateMachine = null;
 
 		public float ThrusterValue { get; private set; }
@@ -40,9 +42,17 @@ namespace DragonsOfKojima
 
 
 		public static Blackboard instance;
+		
+		public enum TreeState
+		{
+			GetPoints,
+			Attack,
+		}
+
+		public TreeState state = TreeState.GetPoints;
+		
 		public void Awake()
 		{
-			_behaviorTree = GetComponent<BehaviorTree>();
 			_stateMachine = GetComponent<Animator>();
 			Mines = new List<GameObject>();
 			Asteroids = new List<GameObject>();
@@ -61,6 +71,7 @@ namespace DragonsOfKojima
 			latestGameData = gameData;
 			_owner = aiShip.Owner;
 			ownerSpaceship = aiShip;
+			_behaviorTrees = ownerSpaceship.GetComponents<BehaviorTree>();
 		}
 
 		public void UpdateData(GameData gameData)
@@ -219,14 +230,21 @@ namespace DragonsOfKojima
 			}
 		}
 
-		public void ChangeMode()
+		public void ChangeMode(TreeState newState)
         {
-			_behaviorTrees = ownerSpaceship.GetComponents<BehaviorTree>();
-			for (int i = 0; i < _behaviorTrees.Length; i++)
-            {
-				_behaviorTrees[i].enabled = !_behaviorTrees[i].enabled;
-
-			}
+	        switch (newState)
+	        {
+		        case TreeState.GetPoints :
+			        _behaviorTrees[currentBehaviourTree].enabled = false;
+			        currentBehaviourTree = 0;
+			        _behaviorTrees[currentBehaviourTree].enabled = true;
+			        break;
+		        case TreeState.Attack :
+			        _behaviorTrees[currentBehaviourTree].enabled = false;
+			        currentBehaviourTree = 1;
+			        _behaviorTrees[currentBehaviourTree].enabled = true;
+			        break;
+	        }
         }
 	}
 }
