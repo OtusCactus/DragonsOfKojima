@@ -152,7 +152,7 @@ namespace DragonsOfKojima
 			Asteroids.Remove(asteroidToAdd);
 		}
 
-		private void SeeShip(bool value)
+		private void SeeEnemyShip(bool value)
 		{
 			IsEnemyInSight = value;
 		}
@@ -171,7 +171,7 @@ namespace DragonsOfKojima
 						AddAsteroid(ObjectInView[i]);
 					}
 				}
-				else if (ObjectInView[i].CompareTag("Mines"))
+				else if (ObjectInView[i].CompareTag("Mine"))
 				{
 					if (!Mines.Contains(ObjectInView[i]));
 					{
@@ -184,35 +184,36 @@ namespace DragonsOfKojima
 			
 			if (ObjectInView.Contains(_latestGameData.SpaceShips[gameDataId].gameObject))
 			{
-				SeeShip(true);
+				SeeEnemyShip(true);
 			}
 			else
 			{
-				SeeShip(false);
+				SeeEnemyShip(false);
 			}
 		}
 
 		private void RemoveFromList(List<GameObject> gameObjectList)
 		{
-			List<int> indexToRemove = new List<int>();
+			if (gameObjectList.Count == 0) return;
+			List<GameObject> indexToRemove = new List<GameObject>();
 			for (int i = 0; i < gameObjectList.Count; i++)
 			{
 				if (ObjectInView.Contains(gameObjectList[i])) return;
-				indexToRemove.Add(i);
+				indexToRemove.Add(gameObjectList[i]);
 			}
 
 			if (gameObjectList == Asteroids)
 			{
 				for (int i = 0; i < indexToRemove.Count; i++)
 				{
-					RemoveAsteroid(gameObjectList[i]);
+					RemoveAsteroid(indexToRemove[i]);
 				}
 			}
 			else if (gameObjectList == Mines)
 			{
 				for (int i = 0; i < indexToRemove.Count; i++)
 				{
-					RemoveMine(gameObjectList[i]);
+					RemoveMine(indexToRemove[i]);
 				}
 			}
 		}
