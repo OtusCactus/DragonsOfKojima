@@ -11,33 +11,37 @@ namespace DragonsOfKojima
 	{
 		public float ThrusterValue;
 		public SharedBool canThrust;
+		public float distanceWithPoint;
+		public SharedObject bestWayPoint;
+		DoNotModify.WayPoint targetPoint;
 
 		public override void OnStart()
 		{
-			if (ThrusterValue > 1)
-			{
-				ThrusterValue = 1;
-			}
-			else if (ThrusterValue < 0)
-			{
-				ThrusterValue = 0;
-			}
-
-			//Blackboard.instance.ChangeThrusterValue(ThrusterValue);
+			targetPoint = bestWayPoint.Value as DoNotModify.WayPoint;
+			//if (ThrusterValue > 1)
+			//{
+			//	ThrusterValue = 1;
+			//}
+			//else if (ThrusterValue < 0)
+			//{
+			//	ThrusterValue = 0;
+			//}
 		}
 
 		public override TaskStatus OnUpdate()
 		{
-            if (canThrust.Value)
+			distanceWithPoint = Vector2.Distance(targetPoint.Position, Blackboard.instance.ownerSpaceship.Position);
+			if (canThrust.Value && (distanceWithPoint >= 1.5 || Blackboard.instance.ownerSpaceship.Velocity == Vector2.zero))
             {
-				canThrust.Value = false;
+
+				//ThrusterValue = ((distanceWithPoint * 0.1f) + (Blackboard.instance.angleToTarget * 0.1f));
 				Blackboard.instance.ChangeThrusterValue(0.2f);
-				return TaskStatus.Success;
 			}
             else
             {
-				return TaskStatus.Failure;
+				Blackboard.instance.ChangeThrusterValue(0f);
 			}
+			return TaskStatus.Success;
 		}
 	}
 }

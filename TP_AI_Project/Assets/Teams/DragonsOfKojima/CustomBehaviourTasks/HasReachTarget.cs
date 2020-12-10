@@ -19,6 +19,7 @@ namespace DragonsOfKojima
 		{
             if (targetPoint.Owner == Blackboard.instance.ownerSpaceship.Owner)
 			{
+				Blackboard.instance.ChangeThrusterValue(0f);
 				return TaskStatus.Failure;
 			}
             else

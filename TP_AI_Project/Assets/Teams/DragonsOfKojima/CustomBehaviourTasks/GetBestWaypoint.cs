@@ -10,7 +10,6 @@ namespace DragonsOfKojima
 	{
 		public SharedObject bestWayPoint;
 		private List<DoNotModify.WayPoint> allWayPoints;
-		public SharedFloat distanceWithWaypoint;
 
 		public override void OnStart()
 		{
@@ -72,7 +71,6 @@ namespace DragonsOfKojima
 			}
 			bestWayPoint.Value = bestPoint;
 			DoNotModify.WayPoint temp = bestPoint as DoNotModify.WayPoint;
-			distanceWithWaypoint.Value = Vector2.Distance(temp.Position, Blackboard.instance.ownerSpaceship.Position);
 			return TaskStatus.Success;
 		}
 	}
