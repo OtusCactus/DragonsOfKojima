@@ -5,8 +5,7 @@ using BehaviorDesigner.Runtime.Tasks;
 namespace DragonsOfKojima {
 	public class IsFacingTarget : Action
 	{
-
-		public float miaou;
+		public float shipOriantation;
 
 		public override void OnStart()
 		{
@@ -15,8 +14,12 @@ namespace DragonsOfKojima {
 
 		public override TaskStatus OnUpdate()
 		{
-
-			if (Blackboard.instance.ownerSpaceship.Orientation == Blackboard.instance.angleToTarget)
+			shipOriantation = Blackboard.instance.ownerSpaceship.Orientation;
+			if (shipOriantation > 180)
+			{
+				shipOriantation -= 360;
+			}
+			if (shipOriantation == Blackboard.instance.angleToTarget)
 			{
 				return TaskStatus.Success;
             }

@@ -10,6 +10,7 @@ namespace DragonsOfKojima
 	public class ThrusterPower : Action
 	{
 		public float ThrusterValue;
+		public SharedBool canThrust;
 
 		public override void OnStart()
 		{
@@ -22,12 +23,21 @@ namespace DragonsOfKojima
 				ThrusterValue = 0;
 			}
 
-			Blackboard.instance.ChangeThrusterValue(ThrusterValue);
+			//Blackboard.instance.ChangeThrusterValue(ThrusterValue);
 		}
 
 		public override TaskStatus OnUpdate()
 		{
-			return TaskStatus.Success;
+            if (canThrust.Value)
+            {
+				canThrust.Value = false;
+				Blackboard.instance.ChangeThrusterValue(0.2f);
+				return TaskStatus.Success;
+			}
+            else
+            {
+				return TaskStatus.Failure;
+			}
 		}
 	}
 }

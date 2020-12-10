@@ -10,6 +10,7 @@ namespace DragonsOfKojima
 	{
 		public SharedObject bestWayPoint;
 		private List<DoNotModify.WayPoint> allWayPoints;
+		public SharedFloat distanceWithWaypoint;
 
 		public override void OnStart()
 		{
@@ -31,7 +32,6 @@ namespace DragonsOfKojima
 
 			foreach (DoNotModify.WayPoint point in allWayPoints)
 			{
-				///TO DO : add owner verification   avec singleton blackboard ou mettre spaceship en variable du blackboard
 				if (point.Owner != Blackboard.instance.ownerSpaceship.Owner)
 				{
 					Vector2 dir = new Vector2(point.Position.x, point.Position.y) - Blackboard.instance.ownerSpaceship.Velocity;
@@ -71,6 +71,8 @@ namespace DragonsOfKojima
 
 			}
 			bestWayPoint.Value = bestPoint;
+			DoNotModify.WayPoint temp = bestPoint as DoNotModify.WayPoint;
+			distanceWithWaypoint.Value = Vector2.Distance(temp.Position, Blackboard.instance.ownerSpaceship.Position);
 			return TaskStatus.Success;
 		}
 	}

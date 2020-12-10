@@ -20,7 +20,7 @@ namespace DragonsOfKojima
         public override InputData UpdateInput(SpaceShip spaceship, GameData data)
         {
             float thrust = _blackboard.ThrusterValue;
-            float targetOrient = spaceship.Orientation + Blackboard.instance.angleToTarget;
+            //float targetOrient = spaceship.Orientation + Blackboard.instance.angleToTarget;
 
             _blackboard.UpdateData(data);
 
