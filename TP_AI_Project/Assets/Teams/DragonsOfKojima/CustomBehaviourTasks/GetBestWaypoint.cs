@@ -57,9 +57,9 @@ namespace DragonsOfKojima
 				{
 					float thisPointScore = 0;
 
-					Vector2 dir = new Vector2(point.Position.x, point.Position.y) - Blackboard.instance.ownerSpaceship.Velocity;
-					dir = point.transform.InverseTransformDirection(dir);
-					float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+                    Vector2 dir = new Vector2(point.Position.x, point.Position.y) - Blackboard.instance.ownerSpaceship.Velocity;
+                    dir = point.transform.InverseTransformDirection(dir);
+                    float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
 
 					thisPointScore += Mathf.Abs((angle * 2)) * angleRatio;
 
@@ -76,11 +76,8 @@ namespace DragonsOfKojima
 					//TODO MALUS MINE
 
 					if(point.Owner == -1){
-						Debug.Log("hello " + thisPointScore);
 						if (thisPointScore < bestScoreNeutral)
 						{
-							//Debug.Log("miaou " + thisPointScore);
-							//Debug.Log("miaou 2 " + bestScoreNeutral);
 							bestScoreNeutral = thisPointScore;
 							bestNeutral.thisPoint = point;
 							bestNeutral.score = thisPointScore;

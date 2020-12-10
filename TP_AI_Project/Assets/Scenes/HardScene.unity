@@ -812,6 +812,24 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!114 &196722150 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6745981390406698512, guid: ed3298bd63efa3146b6dd51e703464e9,
+    type: 3}
+  m_PrefabInstance: {fileID: 1679747692}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21f500a2d65267a4b98f696cc0d73c15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &196722154 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6745981390406698515, guid: ed3298bd63efa3146b6dd51e703464e9,
+    type: 3}
+  m_PrefabInstance: {fileID: 1679747692}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &250669771
 GameObject:
   m_ObjectHideFlags: 0
@@ -2927,18 +2945,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 9075386313206793690}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1079645155 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 821512576268259775, guid: 889ab55f6899dc042bed0f84c9d18bcd,
-    type: 3}
-  m_PrefabInstance: {fileID: 9075386313206793690}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21f500a2d65267a4b98f696cc0d73c15, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1091476480
 GameObject:
   m_ObjectHideFlags: 0
@@ -4474,6 +4480,75 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1657785829}
   m_CullTransparentMesh: 0
+--- !u!1001 &1679747692
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 2113452395}
+    m_Modifications:
+    - target: {fileID: 6745981390406698514, guid: ed3298bd63efa3146b6dd51e703464e9,
+        type: 3}
+      propertyPath: m_Name
+      value: DragonSpaceShipKojima
+      objectReference: {fileID: 0}
+    - target: {fileID: 6745981390406698515, guid: ed3298bd63efa3146b6dd51e703464e9,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6745981390406698515, guid: ed3298bd63efa3146b6dd51e703464e9,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 6745981390406698515, guid: ed3298bd63efa3146b6dd51e703464e9,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6745981390406698515, guid: ed3298bd63efa3146b6dd51e703464e9,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6745981390406698515, guid: ed3298bd63efa3146b6dd51e703464e9,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6745981390406698515, guid: ed3298bd63efa3146b6dd51e703464e9,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6745981390406698515, guid: ed3298bd63efa3146b6dd51e703464e9,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6745981390406698515, guid: ed3298bd63efa3146b6dd51e703464e9,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6745981390406698515, guid: ed3298bd63efa3146b6dd51e703464e9,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6745981390406698515, guid: ed3298bd63efa3146b6dd51e703464e9,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6745981390406698515, guid: ed3298bd63efa3146b6dd51e703464e9,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 180
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ed3298bd63efa3146b6dd51e703464e9, type: 3}
 --- !u!1001 &1797181962
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4745,6 +4820,7 @@ Transform:
   - {fileID: 2127158557}
   - {fileID: 352558041}
   - {fileID: 1079645154}
+  - {fileID: 196722154}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4762,7 +4838,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spaceShips:
   - {fileID: 352558042}
-  - {fileID: 1079645155}
+  - {fileID: 196722150}
   _debugControllerSO: {fileID: 11400000, guid: f1b8b3b2876be244d9107938012a5207, type: 2}
   _mapRoot: {fileID: 2127158556}
   _gameDuration: 60
@@ -5021,6 +5097,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SpaceShip2
+      objectReference: {fileID: 0}
+    - target: {fileID: 821512576268259773, guid: 889ab55f6899dc042bed0f84c9d18bcd,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 889ab55f6899dc042bed0f84c9d18bcd, type: 3}
