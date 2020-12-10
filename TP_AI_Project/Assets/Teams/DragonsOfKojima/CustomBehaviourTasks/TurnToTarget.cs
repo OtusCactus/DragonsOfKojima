@@ -16,6 +16,10 @@ namespace DragonsOfKojima
 
 		public override TaskStatus OnUpdate()
 		{
+			if (targetPoint == null)
+			{
+				return TaskStatus.Failure;
+			}
 			Vector2 vectorToDestinationWithInertia = targetPoint.Position - Blackboard.instance.ownerSpaceship.Position;
 
 			Vector2 dir = vectorToDestinationWithInertia - new Vector2(Blackboard.instance.ownerSpaceship.transform.right.x, Blackboard.instance.ownerSpaceship.transform.right.y);

@@ -19,7 +19,7 @@ namespace DragonsOfKojima
 
 		int _owner;
 		public SpaceShip ownerSpaceship { get; private set; }
-		GameData _latestGameData = null;
+		public GameData latestGameData = null;
 
 		bool _debugCanShootIntersect = false;
 		Vector2 _debugIntersection = Vector2.zero;
@@ -57,14 +57,14 @@ namespace DragonsOfKojima
 
 		public void Initialize(SpaceShip aiShip, GameData gameData)
 		{
-			_latestGameData = gameData;
+			latestGameData = gameData;
 			_owner = aiShip.Owner;
 			ownerSpaceship = aiShip;
 		}
 
 		public void UpdateData(GameData gameData)
 		{
-			_latestGameData = gameData;
+			latestGameData = gameData;
 
 			//_behaviorTree.SetVariableValue("SomeVariable", 1.5f);
 			//_stateMachine.SetFloat("SomeVariable", 1.5f);
@@ -109,8 +109,8 @@ namespace DragonsOfKojima
 		{
 			if (_debugCanShootIntersect)
 			{
-				SpaceShip aiShip = _latestGameData.SpaceShips[_owner];
-				SpaceShip enemyShip = _latestGameData.SpaceShips[1 - _owner];
+				SpaceShip aiShip = latestGameData.SpaceShips[_owner];
+				SpaceShip enemyShip = latestGameData.SpaceShips[1 - _owner];
 				Gizmos.DrawLine(aiShip.Position, _debugIntersection);
 				Gizmos.DrawLine(enemyShip.Position, _debugIntersection);
 				Gizmos.DrawSphere(_debugIntersection, Mathf.Clamp(Mathf.Abs(_debugTimeDiff), 0.5f, 0));
@@ -180,9 +180,9 @@ namespace DragonsOfKojima
 				}
 			}
 
-			int gameDataId = _latestGameData.SpaceShips.IndexOf(ownerSpaceship);
+			int gameDataId = latestGameData.SpaceShips.IndexOf(ownerSpaceship);
 			
-			if (ObjectInView.Contains(_latestGameData.SpaceShips[gameDataId].gameObject))
+			if (ObjectInView.Contains(latestGameData.SpaceShips[gameDataId].gameObject))
 			{
 				SeeEnemyShip(true);
 			}

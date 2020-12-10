@@ -12,7 +12,9 @@ namespace DragonsOfKojima
 		public float smallDistanceMalus;
 		public float angleRatio;
 		public float mineMalus;
+		public float asteroidMalus;
 		public float coefficentEnemy;
+		public float radiusPointForMineDetection;
 		public SharedObject bestWayPoint;
 		private List<DoNotModify.WayPoint> allWayPoints;
 
@@ -56,8 +58,15 @@ namespace DragonsOfKojima
 				if (point.Owner != Blackboard.instance.ownerSpaceship.Owner)
 				{
 					float thisPointScore = 0;
+					RaycastHit2D[] objectsHit = Physics2D.LinecastAll(Blackboard.instance.ownerSpaceship.Position, point.Position);
+					foreach (RaycastHit2D hit in objectsHit)
+					{
+                        if (hit.collider.CompareTag("Asteroid")){
+							thisPointScore += asteroidMalus;
+                        }
+					}
 
-                    Vector2 dir = new Vector2(point.Position.x, point.Position.y) - Blackboard.instance.ownerSpaceship.Velocity;
+					Vector2 dir = new Vector2(point.Position.x, point.Position.y) - Blackboard.instance.ownerSpaceship.Velocity;
                     dir = point.transform.InverseTransformDirection(dir);
                     float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
 
@@ -74,6 +83,14 @@ namespace DragonsOfKojima
 
 					thisPointScore += (dist * distanceRatio) + smallDistanceMalus;
 					//TODO MALUS MINE
+					foreach (DoNotModify.Mine mine in Blackboard.instance.latestGameData.Mines)
+					{
+						float distanceSqr = (point.Position - mine.Position).sqrMagnitude;
+						if (distanceSqr < point.Radius + radiusPointForMineDetection)
+						{
+							thisPointScore += mineMalus;
+						}
+					}
 
 					if(point.Owner == -1){
 						if (thisPointScore < bestScoreNeutral)
@@ -100,23 +117,22 @@ namespace DragonsOfKojima
 					//	minDist = dist;
 					//}
 				}
-				//if (lessAnglePoint == closestPoint)
-				//{
-				//	bestPoint = closestPoint;
-				//}
-				////check rapport angle/distance
-				//else if (Vector3.Distance(lessAnglePointTransform, currentPos) >= 5)
-				//{
-				//	bestPoint = closestPoint;
-				//}
-				//else
-				//{
-				//	bestPoint = lessAnglePoint;
-				//}
-
 			}
+			//if (lessAnglePoint == closestPoint)
+			//{
+			//	bestPoint = closestPoint;
+			//}
+			////check rapport angle/distance
+			//else if (Vector3.Distance(lessAnglePointTransform, currentPos) >= 5)
+			//{
+			//	bestPoint = closestPoint;
+			//}
+			//else
+			//{
+			//	bestPoint = lessAnglePoint;
+			//}
 			bestWayPoint.Value = bestNeutral.thisPoint;
-			if (bestNeutral.score < bestEnemy.score || bestEnemy.thisPoint == null)
+			if ((bestNeutral.thisPoint != null && bestNeutral.score < bestEnemy.score) || bestEnemy.thisPoint == null)
             {
 				bestWayPoint.Value = bestNeutral.thisPoint;
 			}
