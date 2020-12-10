@@ -38,16 +38,6 @@ namespace DragonsOfKojima
 
 		public override TaskStatus OnUpdate()
 		{
-			//Object closestPoint = null;
-			//Vector2 lessAnglePointTransform = Vector2.zero;
-			//Object lessAnglePoint = null;
-			//Object bestPoint = null;
-
-
-			//float minDist = Mathf.Infinity;
-			//float minAngle = Mathf.Infinity;
-			//Vector3 currentPos = transform.position;
-
 			WayPointAndScore bestNeutral = new WayPointAndScore(null, 0);
 			WayPointAndScore bestEnemy = new WayPointAndScore(null, 0);
 			float bestScoreNeutral = Mathf.Infinity;
@@ -66,23 +56,17 @@ namespace DragonsOfKojima
                         }
 					}
 
-					Vector2 dir = new Vector2(point.Position.x, point.Position.y) - Blackboard.instance.ownerSpaceship.Velocity;
-                    dir = point.transform.InverseTransformDirection(dir);
-                    float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+					Vector2 dir = new Vector2(point.Position.x, point.Position.y) - Blackboard.instance.ownerSpaceship.Position;
+					float angle = Vector2.Angle(Blackboard.instance.ownerSpaceship.Velocity, dir);
+
 
 					thisPointScore += Mathf.Abs((angle * 2)) * angleRatio;
 
-					//if (angle < minAngle)
-					//{
-					//	lessAnglePointTransform = point.Position;
-					//	lessAnglePoint = point;
-					//	minAngle = angle;
-					//}
 
 					float dist = Vector3.Distance(point.Position, Blackboard.instance.ownerSpaceship.Position);
 
 					thisPointScore += (dist * distanceRatio) + smallDistanceMalus;
-					//TODO MALUS MINE
+
 					foreach (DoNotModify.Mine mine in Blackboard.instance.latestGameData.Mines)
 					{
 						float distanceSqr = (point.Position - mine.Position).sqrMagnitude;
@@ -110,27 +94,9 @@ namespace DragonsOfKojima
 							bestEnemy.score = thisPointScore;
 						}
 					}
-
-					//if (dist < minDist)
-					//{
-					//	closestPoint = point;
-					//	minDist = dist;
-					//}
 				}
 			}
-			//if (lessAnglePoint == closestPoint)
-			//{
-			//	bestPoint = closestPoint;
-			//}
-			////check rapport angle/distance
-			//else if (Vector3.Distance(lessAnglePointTransform, currentPos) >= 5)
-			//{
-			//	bestPoint = closestPoint;
-			//}
-			//else
-			//{
-			//	bestPoint = lessAnglePoint;
-			//}
+
 			bestWayPoint.Value = bestNeutral.thisPoint;
 			if ((bestNeutral.thisPoint != null && bestNeutral.score < bestEnemy.score) || bestEnemy.thisPoint == null)
             {
