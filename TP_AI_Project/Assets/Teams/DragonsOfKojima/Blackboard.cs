@@ -53,7 +53,6 @@ namespace DragonsOfKojima
 		
 		public void Awake()
 		{
-			_stateMachine = GetComponent<Animator>();
 			Mines = new List<GameObject>();
 			Asteroids = new List<GameObject>();
 			if (instance == null)
@@ -72,6 +71,7 @@ namespace DragonsOfKojima
 			_owner = aiShip.Owner;
 			ownerSpaceship = aiShip;
 			_behaviorTrees = ownerSpaceship.GetComponents<BehaviorTree>();
+			_stateMachine = ownerSpaceship.GetComponent<Animator>();
 		}
 
 		public void UpdateData(GameData gameData)
