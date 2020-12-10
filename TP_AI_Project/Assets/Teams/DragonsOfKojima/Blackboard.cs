@@ -27,13 +27,24 @@ namespace DragonsOfKojima
 
 		/// <INPUT DATA PROPERTIES>
 		public float angleToTarget = 0;
+
+		public List<GameObject> ObjectInView;
 		
+		public int NumberOfMinesInView { get; private set; }
+		public bool IsEnemyInSight { get; private set; }
+		public int NumberOfAsteroidsInView { get; private set; }
+
+		public List<GameObject> Mines { get; private set; }
+		public List<GameObject> Asteroids{ get; private set; }
+
 
 		public static Blackboard instance;
 		public void Awake()
 		{
 			_behaviorTree = GetComponent<BehaviorTree>();
 			_stateMachine = GetComponent<Animator>();
+			Mines = new List<GameObject>();
+			Asteroids = new List<GameObject>();
 			if (instance == null)
 			{
 				instance = this;
@@ -109,6 +120,101 @@ namespace DragonsOfKojima
 		public void ChangeThrusterValue(float newValue)
 		{
 			ThrusterValue = newValue;
+		}
+
+		private void AddMine(GameObject mineToAdd)
+		{
+			if (Mines.Contains(mineToAdd)) return;
+			NumberOfMinesInView++;
+			Mines.Add(mineToAdd);
+		}
+
+		private void RemoveMine(GameObject mineToAdd)
+		{
+			if (!Mines.Contains(mineToAdd)) return;
+
+			NumberOfMinesInView--;
+			Mines.Remove(mineToAdd);
+		}
+		
+		private void AddAsteroid(GameObject asteroidToAdd)
+		{
+			if (Asteroids.Contains(asteroidToAdd)) return;
+			NumberOfAsteroidsInView++;
+			Asteroids.Add(asteroidToAdd);
+		}
+
+		private void RemoveAsteroid(GameObject asteroidToAdd)
+		{
+			if (!Asteroids.Contains(asteroidToAdd)) return;
+
+			NumberOfAsteroidsInView--;
+			Asteroids.Remove(asteroidToAdd);
+		}
+
+		private void SeeShip(bool value)
+		{
+			IsEnemyInSight = value;
+		}
+
+		public void RefreshObjectsInView()
+		{
+			RemoveFromList(Asteroids);
+			RemoveFromList(Mines);
+			
+			for (int i = 0; i < ObjectInView.Count; i++)
+			{
+				if (ObjectInView[i].CompareTag("Asteroid"))
+				{
+					if (!Asteroids.Contains(ObjectInView[i]));
+					{
+						AddAsteroid(ObjectInView[i]);
+					}
+				}
+				else if (ObjectInView[i].CompareTag("Mines"))
+				{
+					if (!Mines.Contains(ObjectInView[i]));
+					{
+						AddMine(ObjectInView[i]);
+					}
+				}
+			}
+
+			int gameDataId = _latestGameData.SpaceShips.IndexOf(ownerSpaceship);
+			
+			if (ObjectInView.Contains(_latestGameData.SpaceShips[gameDataId].gameObject))
+			{
+				SeeShip(true);
+			}
+			else
+			{
+				SeeShip(false);
+			}
+		}
+
+		private void RemoveFromList(List<GameObject> gameObjectList)
+		{
+			List<int> indexToRemove = new List<int>();
+			for (int i = 0; i < gameObjectList.Count; i++)
+			{
+				if (ObjectInView.Contains(gameObjectList[i])) return;
+				indexToRemove.Add(i);
+			}
+
+			if (gameObjectList == Asteroids)
+			{
+				for (int i = 0; i < indexToRemove.Count; i++)
+				{
+					RemoveAsteroid(gameObjectList[i]);
+				}
+			}
+			else if (gameObjectList == Mines)
+			{
+				for (int i = 0; i < indexToRemove.Count; i++)
+				{
+					RemoveMine(gameObjectList[i]);
+				}
+			}
 		}
 	}
 }
