@@ -12,6 +12,13 @@ namespace DragonsOfKojima
 		public float ThrusterValue;
 		public SharedBool canThrust;
 		public float distanceWithPoint;
+
+		public float distanceForMaxThruster;
+		public float distanceForMediumThruster;
+
+		public float angleForMaxThruster;
+		public float angleForMediumThruster;
+
 		public SharedObject bestWayPoint;
 		DoNotModify.WayPoint targetPoint;
 
@@ -31,11 +38,23 @@ namespace DragonsOfKojima
 		public override TaskStatus OnUpdate()
 		{
 			distanceWithPoint = Vector2.Distance(targetPoint.Position, Blackboard.instance.ownerSpaceship.Position);
+			Vector2 direction = new Vector2(Mathf.Cos(Blackboard.instance.ownerSpaceship.Orientation * Mathf.Deg2Rad), Mathf.Sin(Blackboard.instance.ownerSpaceship.Orientation * Mathf.Deg2Rad));
+			float angle = Mathf.Abs(Vector2.Angle(direction, Blackboard.instance.ownerSpaceship.Velocity));
 			if (canThrust.Value && (distanceWithPoint >= 1.5 || Blackboard.instance.ownerSpaceship.Velocity == Vector2.zero))
             {
-
-				//ThrusterValue = ((distanceWithPoint * 0.1f) + (Blackboard.instance.angleToTarget * 0.1f));
-				Blackboard.instance.ChangeThrusterValue(0.2f);
+				if(distanceWithPoint >= distanceForMaxThruster)
+                {
+					ThrusterValue = 1;
+                }
+                else if (angle <= angleForMaxThruster)
+                {
+					ThrusterValue = 1;
+                }
+                else
+                {
+					ThrusterValue = (distanceWithPoint * (0.5f/distanceForMediumThruster)) + (0.5f - (angle * (0.5f/angleForMediumThruster)));
+				}
+				Blackboard.instance.ChangeThrusterValue(ThrusterValue);
 			}
             else
             {
