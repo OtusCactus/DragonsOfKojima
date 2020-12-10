@@ -1,6 +1,7 @@
 using UnityEngine;
 using BehaviorDesigner.Runtime;
 using BehaviorDesigner.Runtime.Tasks;
+using DoNotModify;
 
 namespace DragonsOfKojima
 {
@@ -20,19 +21,41 @@ namespace DragonsOfKojima
 		public float angleForMediumThruster;
 
 		public SharedObject bestWayPoint;
-		DoNotModify.WayPoint targetPoint;
+		public SharedVector2 SecondaryPosition;
+		Vector2 targetPoint;
+		DoNotModify.SpaceShip enemy;
 
 		public override void OnStart()
 		{
-			targetPoint = bestWayPoint.Value as DoNotModify.WayPoint;
+			WayPoint temp = bestWayPoint.Value as DoNotModify.WayPoint;
+			if (temp == null)
+			{
+				SpaceShip temp2 = bestWayPoint.Value as DoNotModify.SpaceShip;
+				targetPoint = temp2.Position;
+			}
+			else
+			{
+				targetPoint = temp.Position;
+			}
 		}
 
 		public override TaskStatus OnUpdate()
 		{
-			distanceWithPoint = Vector2.Distance(targetPoint.Position, Blackboard.instance.ownerSpaceship.Position);
-			Vector2 direction = new Vector2(Mathf.Cos(Blackboard.instance.ownerSpaceship.Orientation * Mathf.Deg2Rad), Mathf.Sin(Blackboard.instance.ownerSpaceship.Orientation * Mathf.Deg2Rad));
-			float angle = Mathf.Abs(Vector2.Angle(direction, Blackboard.instance.ownerSpaceship.Velocity));
-			Debug.Log("hello " + angle);
+			Vector2 direction;
+			float angle;
+			if (Blackboard.instance.isAsteroidInTheWay)
+			{
+				distanceWithPoint = Vector2.Distance(targetPoint, Blackboard.instance.ownerSpaceship.Position);
+				direction = new Vector2(Mathf.Cos(Blackboard.instance.ownerSpaceship.Orientation * Mathf.Deg2Rad), Mathf.Sin(Blackboard.instance.ownerSpaceship.Orientation * Mathf.Deg2Rad));
+				angle = Mathf.Abs(Vector2.Angle(direction, Blackboard.instance.ownerSpaceship.Velocity));
+			}
+			else
+			{
+				distanceWithPoint = Vector2.Distance(targetPoint, Blackboard.instance.ownerSpaceship.Position);
+				direction = new Vector2(Mathf.Cos(Blackboard.instance.ownerSpaceship.Orientation * Mathf.Deg2Rad), Mathf.Sin(Blackboard.instance.ownerSpaceship.Orientation * Mathf.Deg2Rad));
+				angle = Mathf.Abs(Vector2.Angle(direction, Blackboard.instance.ownerSpaceship.Velocity));
+			}
+			
 			if (canThrust.Value && (distanceWithPoint >= 1.5 || Blackboard.instance.ownerSpaceship.Velocity == Vector2.zero))
             {
                 if (angle <= angleForMaxThruster)

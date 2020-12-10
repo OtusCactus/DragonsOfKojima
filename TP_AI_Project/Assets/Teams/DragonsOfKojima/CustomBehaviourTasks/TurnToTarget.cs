@@ -7,6 +7,7 @@ namespace DragonsOfKojima
 	public class TurnToTarget : Action
 	{
 		public SharedObject bestWayPoint;
+		public SharedVector2 SecondaryPoint;
 		DoNotModify.WayPoint targetPoint;
 
 		public override void OnStart()
@@ -20,20 +21,29 @@ namespace DragonsOfKojima
 			{
 				return TaskStatus.Failure;
 			}
-			
-			
-			float velocityOrientation = Vector2.SignedAngle(Vector2.right, Blackboard.instance.ownerSpaceship.Velocity);
-			float diffVelocityToTarget = Vector2.SignedAngle(Blackboard.instance.ownerSpaceship.Velocity, targetPoint.Position - Blackboard.instance.ownerSpaceship.Position);
-			float diffIncreased = diffVelocityToTarget * 1.5f;
-			diffIncreased = Mathf.Clamp(diffIncreased, -179, 179);
-			Blackboard.instance.angleToTarget = velocityOrientation + diffIncreased;
-			// Vector2 vectorToDestinationWithInertia = targetPoint.Position - Blackboard.instance.ownerSpaceship.Position;
-			//
-			// Vector2 dir = vectorToDestinationWithInertia - new Vector2(Blackboard.instance.ownerSpaceship.transform.right.x, Blackboard.instance.ownerSpaceship.transform.right.y);
-			// Blackboard.instance.angleToTarget = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-			return TaskStatus.Success;
-			
 
+			float velocityOrientation = 0;
+			float diffVelocityToTarget = 0;
+			float diffIncreased = 0;
+			
+			if (Blackboard.instance.isAsteroidInTheWay)
+			{
+				velocityOrientation = Vector2.SignedAngle(Vector2.right, Blackboard.instance.ownerSpaceship.Velocity);
+				diffVelocityToTarget = Vector2.SignedAngle(Blackboard.instance.ownerSpaceship.Velocity, SecondaryPoint.Value - Blackboard.instance.ownerSpaceship.Position);
+				diffIncreased = diffVelocityToTarget * 1.5f;
+				diffIncreased = Mathf.Clamp(diffIncreased, -179, 179);
+				Blackboard.instance.angleToTarget = velocityOrientation + diffIncreased;	
+			}
+			else
+			{
+				velocityOrientation = Vector2.SignedAngle(Vector2.right, Blackboard.instance.ownerSpaceship.Velocity);
+				diffVelocityToTarget = Vector2.SignedAngle(Blackboard.instance.ownerSpaceship.Velocity, targetPoint.Position - Blackboard.instance.ownerSpaceship.Position);
+				diffIncreased = diffVelocityToTarget * 1.5f;
+				diffIncreased = Mathf.Clamp(diffIncreased, -179, 179);
+				Blackboard.instance.angleToTarget = velocityOrientation + diffIncreased;
+			}
+			
+			return TaskStatus.Success;
 		}
 	}
 }

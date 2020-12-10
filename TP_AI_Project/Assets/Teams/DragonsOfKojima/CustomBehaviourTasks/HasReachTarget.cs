@@ -8,6 +8,7 @@ namespace DragonsOfKojima
 	{
 		public SharedBool canDropMine;
 		public SharedObject bestPoint;
+		public SharedVector2 SecondaryPosition;
 		DoNotModify.WayPoint targetPoint;
 
 		public override void OnStart()
@@ -17,7 +18,20 @@ namespace DragonsOfKojima
 
 		public override TaskStatus OnUpdate()
 		{
-            if (targetPoint.Owner == Blackboard.instance.ownerSpaceship.Owner)
+			if (Blackboard.instance.isAsteroidInTheWay)
+			{
+				float distance = Vector2.Distance(SecondaryPosition.Value, Blackboard.instance.ownerSpaceship.Position);
+				if (distance < 1)
+				{
+					Blackboard.instance.isAsteroidInTheWay = false;
+					return TaskStatus.Failure;
+				}
+				else
+				{
+					return TaskStatus.Success;
+				}
+			}
+            else if (targetPoint.Owner == Blackboard.instance.ownerSpaceship.Owner)
 			{
 				Blackboard.instance.ChangeThrusterValue(0f);
 				canDropMine.Value = true;

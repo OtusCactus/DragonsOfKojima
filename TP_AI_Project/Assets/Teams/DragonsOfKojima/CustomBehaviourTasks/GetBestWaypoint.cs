@@ -113,6 +113,7 @@ namespace DragonsOfKojima
 			}
             else
             {
+	            Blackboard.instance.stateMachine.SetTrigger("Attack");
 				return TaskStatus.Failure;
 			}
 		}

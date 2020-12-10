@@ -75,7 +75,7 @@ namespace DragonsOfKojima
                     (new Vector2(currentObjettargetd.transform.position.x, currentObjettargetd.transform.position.y) -
                      AiSpaceShip.Position).normalized;
                 
-                hit = Physics2D.Linecast(AiSpaceShip.Position + direction * 1.2f, objectList[i].transform.position);
+                hit = Physics2D.Linecast(AiSpaceShip.Position + direction * 1.1f, objectList[i].transform.position);
                 if (hit.transform != null) {
                     if (hit.transform.CompareTag("Wall"))
                     {

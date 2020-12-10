@@ -16,7 +16,7 @@ namespace DragonsOfKojima
 		BehaviorTree _behaviorTree = null;
 		BehaviorTree[] _behaviorTrees;
 		int currentBehaviourTree = 0;
-		Animator _stateMachine = null;
+		public Animator stateMachine = null;
 
 		public float ThrusterValue { get; private set; }
 
@@ -39,6 +39,7 @@ namespace DragonsOfKojima
 
 		public List<GameObject> Mines { get; private set; }
 		public List<GameObject> Asteroids{ get; private set; }
+		public bool isAsteroidInTheWay = false;
 
 
 		public static Blackboard instance;
@@ -71,7 +72,7 @@ namespace DragonsOfKojima
 			_owner = aiShip.Owner;
 			ownerSpaceship = aiShip;
 			_behaviorTrees = ownerSpaceship.GetComponents<BehaviorTree>();
-			_stateMachine = ownerSpaceship.GetComponent<Animator>();
+			stateMachine = ownerSpaceship.GetComponent<Animator>();
 		}
 
 		public void UpdateData(GameData gameData)
