@@ -13,6 +13,7 @@ namespace DragonsOfKojima
 		public bool TriggerShoot { get; private set; }
 
 		BehaviorTree _behaviorTree = null;
+		BehaviorTree[] _behaviorTrees;
 		Animator _stateMachine = null;
 
 		public float ThrusterValue { get; private set; }
@@ -217,5 +218,15 @@ namespace DragonsOfKojima
 				}
 			}
 		}
+
+		public void ChangeMode()
+        {
+			_behaviorTrees = ownerSpaceship.GetComponents<BehaviorTree>();
+			for (int i = 0; i < _behaviorTrees.Length; i++)
+            {
+				_behaviorTrees[i].enabled = !_behaviorTrees[i].enabled;
+
+			}
+        }
 	}
 }

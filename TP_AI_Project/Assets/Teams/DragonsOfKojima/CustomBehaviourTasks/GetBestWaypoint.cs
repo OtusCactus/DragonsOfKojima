@@ -141,7 +141,15 @@ namespace DragonsOfKojima
 				bestWayPoint.Value = bestEnemy.thisPoint;
 
 			}
-			return TaskStatus.Success;
+			if (bestWayPoint.Value != null)
+			{
+				return TaskStatus.Success;
+			}
+            else
+            {
+				Blackboard.instance.ChangeMode();
+				return TaskStatus.Failure;
+			}
 		}
 	}
 }

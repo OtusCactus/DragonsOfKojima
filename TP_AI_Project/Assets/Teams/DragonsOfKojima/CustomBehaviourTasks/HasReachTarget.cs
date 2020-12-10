@@ -25,6 +25,7 @@ namespace DragonsOfKojima
 			}
             else
 			{
+				canDropMine.Value = false;
 				return TaskStatus.Success;
 			}
 		}
