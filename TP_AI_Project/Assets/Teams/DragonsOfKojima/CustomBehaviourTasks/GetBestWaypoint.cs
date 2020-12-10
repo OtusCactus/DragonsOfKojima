@@ -147,7 +147,6 @@ namespace DragonsOfKojima
 			}
             else
             {
-				Blackboard.instance.ChangeMode();
 				return TaskStatus.Failure;
 			}
 		}
