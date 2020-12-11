@@ -1,25 +1,22 @@
 using UnityEngine;
 using BehaviorDesigner.Runtime;
 using BehaviorDesigner.Runtime.Tasks;
+using DoNotModify;
 using DragonsOfKojima;
 
 namespace DragonsOfKojima
 {
-	[TaskDescription("Shoot in front of ship")]
-
-	
-	public class ShootInFront : Action
+	public class GetEnemyPosition : Action
 	{
-		public int numbersOfShots = 1;
-		private int shotsFired = 1;
-		
+
+		public SharedVector2 enemyPosition;
+		public SharedObject enemy;
+		public SpaceShip enemyShip;
+	
 		public override void OnStart()
 		{
-			if (shotsFired >= numbersOfShots)
-			{
-				Blackboard.instance.ownerSpaceship.Shoot();
-				shotsFired++;
-			}
+			enemyShip = enemy.Value as SpaceShip;
+			enemyPosition.Value = enemyShip.Position;
 		}
 
 		public override TaskStatus OnUpdate()

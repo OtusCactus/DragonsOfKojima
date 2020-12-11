@@ -2,12 +2,15 @@ using UnityEngine;
 using BehaviorDesigner.Runtime;
 using BehaviorDesigner.Runtime.Tasks;
 
-public class GetNumberOfMinesInRadius : Conditional
+namespace DragonsOfKojima
 {
-	public override TaskStatus OnUpdate()
+	public class GetNumberOfMinesInRadius : Conditional
 	{
-		
-		
-		return TaskStatus.Success;
+		public override TaskStatus OnUpdate()
+		{
+
+
+			return TaskStatus.Success;
+		}
 	}
 }

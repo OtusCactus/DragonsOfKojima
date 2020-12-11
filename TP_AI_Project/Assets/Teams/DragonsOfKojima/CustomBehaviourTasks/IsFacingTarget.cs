@@ -6,7 +6,6 @@ namespace DragonsOfKojima {
 	public class IsFacingTarget : Action
 	{
 		public SharedFloat shipOriantation;
-		public SharedBool canThrust;
 
 		public override void OnStart()
 		{
@@ -22,18 +21,12 @@ namespace DragonsOfKojima {
 			}
 			if (shipOriantation.Value >= Blackboard.instance.angleToTarget - 5 && shipOriantation.Value <= Blackboard.instance.angleToTarget + 5)
 			{
-				//return TaskStatus.Success;
-				canThrust.Value = true;
+				return TaskStatus.Success;
 			}
-            else
-            {
-				canThrust.Value = false;
-			}
-			//        else
-			//        {
-			//return TaskStatus.Failure;
-			//        }
-			return TaskStatus.Success;
+	        else
+	        {
+				return TaskStatus.Failure;
+	        }
 		}
 	}
 }

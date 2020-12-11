@@ -45,6 +45,7 @@ namespace DragonsOfKojima
 			float angle;
 			if (Blackboard.instance.isAsteroidInTheWay)
 			{
+				targetPoint = SecondaryPosition.Value;
 				distanceWithPoint = Vector2.Distance(targetPoint, Blackboard.instance.ownerSpaceship.Position);
 				direction = new Vector2(Mathf.Cos(Blackboard.instance.ownerSpaceship.Orientation * Mathf.Deg2Rad), Mathf.Sin(Blackboard.instance.ownerSpaceship.Orientation * Mathf.Deg2Rad));
 				angle = Mathf.Abs(Vector2.Angle(direction, Blackboard.instance.ownerSpaceship.Velocity));

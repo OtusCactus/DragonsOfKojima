@@ -4,29 +4,32 @@ using BehaviorDesigner.Runtime.Tasks;
 using DoNotModify;
 using DragonsOfKojima;
 
-public class IsEnemyInRange : Conditional
+namespace DragonsOfKojima
 {
-	public float radius = 0;
-	
-	
-	public override TaskStatus OnUpdate()
+	public class IsEnemyInRange : Conditional
 	{
-		SpaceShip enemyShip = GameManager.Instance.spaceShips[1 - Blackboard.instance.ownerSpaceship.Owner];
+		public float radius = 0;
 
-		float DistanceToEnemy = Vector2.Distance(enemyShip.Position, Blackboard.instance.ownerSpaceship.Position);
 
-		if (DistanceToEnemy < radius)
+		public override TaskStatus OnUpdate()
 		{
-			return TaskStatus.Success;
-		}
-		else
-		{
-			return TaskStatus.Failure;
-		}
-	}
+			SpaceShip enemyShip = GameManager.Instance.spaceShips[1 - Blackboard.instance.ownerSpaceship.Owner];
 
-	public override void OnDrawGizmos()
-	{
-		Gizmos.DrawWireSphere(transform.position, radius);
+			float DistanceToEnemy = Vector2.Distance(enemyShip.Position, Blackboard.instance.ownerSpaceship.Position);
+
+			if (DistanceToEnemy < radius)
+			{
+				return TaskStatus.Success;
+			}
+			else
+			{
+				return TaskStatus.Failure;
+			}
+		}
+
+		public override void OnDrawGizmos()
+		{
+			Gizmos.DrawWireSphere(transform.position, radius);
+		}
 	}
 }
