@@ -61,7 +61,7 @@ namespace DragonsOfKojima
             {
                 if (Blackboard.instance.isMineInTheWay)
                 {
-					Blackboard.instance.ChangeThrusterValue(0f);
+					Blackboard.instance.ChangeThrusterValue(0.1f);
 					return TaskStatus.Success;
 				}
                 else if (angle <= angleForMaxThruster)

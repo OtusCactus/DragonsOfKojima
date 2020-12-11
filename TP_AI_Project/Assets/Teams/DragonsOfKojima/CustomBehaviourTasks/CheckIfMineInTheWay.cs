@@ -37,7 +37,7 @@ namespace DragonsOfKojima
 			float dist = Vector2.Distance(Blackboard.instance.Mines[index].GetComponent<DoNotModify.Mine>().Position, Blackboard.instance.ownerSpaceship.Position);
 			float angle = Vector2.Angle(bridge, Blackboard.instance.ownerSpaceship.Velocity);
 
-			if (angle >= -15 && angle <= 15 && dist > 1 && dist < distanceToMine)
+			if (angle >= -15 && angle <= 15 && dist > 0.2f && dist < distanceToMine)
 			{
 				Blackboard.instance.isMineInTheWay = true;
 				mineInWay.Value = Blackboard.instance.Mines[index].transform.position;
