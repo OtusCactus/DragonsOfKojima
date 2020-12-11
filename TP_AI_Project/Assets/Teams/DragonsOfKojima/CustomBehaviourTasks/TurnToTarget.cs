@@ -8,6 +8,7 @@ namespace DragonsOfKojima
 	{
 		public SharedObject bestWayPoint;
 		public SharedVector2 SecondaryPoint;
+		public SharedVector2 mine;
 		DoNotModify.WayPoint targetPoint;
 
 		public override void OnStart()
@@ -33,6 +34,14 @@ namespace DragonsOfKojima
 				diffIncreased = diffVelocityToTarget * 1.5f;
 				diffIncreased = Mathf.Clamp(diffIncreased, -179, 179);
 				Blackboard.instance.angleToTarget = velocityOrientation + diffIncreased;	
+			}
+			else if (Blackboard.instance.isMineInTheWay)
+            {
+				velocityOrientation = Vector2.SignedAngle(Vector2.right, Blackboard.instance.ownerSpaceship.Velocity);
+				diffVelocityToTarget = Vector2.SignedAngle(Blackboard.instance.ownerSpaceship.Velocity, mine.Value - Blackboard.instance.ownerSpaceship.Position);
+				diffIncreased = diffVelocityToTarget * 1.5f;
+				diffIncreased = Mathf.Clamp(diffIncreased, -179, 179);
+				Blackboard.instance.angleToTarget = velocityOrientation + diffIncreased;
 			}
 			else
 			{

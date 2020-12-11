@@ -59,7 +59,12 @@ namespace DragonsOfKojima
 			
 			if (canThrust.Value)
             {
-                if (angle <= angleForMaxThruster)
+                if (Blackboard.instance.isMineInTheWay)
+                {
+					Blackboard.instance.ChangeThrusterValue(0f);
+					return TaskStatus.Success;
+				}
+                else if (angle <= angleForMaxThruster)
                 {
 					ThrusterValue = 1;
                 }

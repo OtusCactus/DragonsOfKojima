@@ -40,6 +40,7 @@ namespace DragonsOfKojima
 		public List<GameObject> Mines { get; private set; }
 		public List<GameObject> Asteroids{ get; private set; }
 		public bool isAsteroidInTheWay = false;
+		public bool isMineInTheWay = false;
 
 
 		public static Blackboard instance;
