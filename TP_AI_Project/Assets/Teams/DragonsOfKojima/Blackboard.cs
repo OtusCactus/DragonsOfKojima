@@ -71,8 +71,8 @@ namespace DragonsOfKojima
 			latestGameData = gameData;
 			_owner = aiShip.Owner;
 			ownerSpaceship = aiShip;
-			_behaviorTrees = ownerSpaceship.GetComponents<BehaviorTree>();
-			stateMachine = ownerSpaceship.GetComponent<Animator>();
+			_behaviorTrees = GetComponents<BehaviorTree>();
+			stateMachine = GetComponent<Animator>();
 		}
 
 		public void UpdateData(GameData gameData)
